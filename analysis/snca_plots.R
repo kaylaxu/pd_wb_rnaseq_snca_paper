@@ -136,7 +136,9 @@ p1 <- ggplot(snca_data[snca_data$cohort %in% c('HC', 'IPD', 'SNCA+', 'GBA+', 'LR
   theme_bw() +
   theme(text = element_text(size=20)) +
   xlab('Predicted Neutrophil Percentage')+
-  guides(color = guide_legend(title = "Status")) 
+  ylab(substitute(paste(italic('SNCA'))))+
+  guides(color = guide_legend(title = "Status"))  +
+  stat_cor(aes(color = case_control_other), label.x = 3) 
   
 p2 <- ggplot(snca_data[snca_data$cohort %in% c('HC', 'IPD', 'SNCA+', 'GBA+', 'LRRK2+'),], aes(x=predNeut, y=SNCA)) +
   geom_point(size = 0.5, aes(color = GBA_mut), alpha=0.5) +
@@ -145,7 +147,9 @@ p2 <- ggplot(snca_data[snca_data$cohort %in% c('HC', 'IPD', 'SNCA+', 'GBA+', 'LR
   theme_bw() +
   theme(text = element_text(size=20)) +
   xlab('Predicted Neutrophil Percentage')+
-  guides(color = guide_legend(title = "GBA+")) 
+  ylab(substitute(paste(italic('SNCA'))))+
+  guides(color = guide_legend(title = substitute(paste(italic('GBA1+')))))  +
+  stat_cor(aes(color = GBA_mut), label.x = 3) 
 
 p3 <- ggplot(snca_data[snca_data$cohort %in% c('HC', 'IPD', 'SNCA+', 'GBA+', 'LRRK2+'),], aes(x=predNeut, y=SNCA, color = SNCA_mut)) +
   geom_point(size = 0.5, aes(color = SNCA_mut), alpha=0.5) +
@@ -154,7 +158,9 @@ p3 <- ggplot(snca_data[snca_data$cohort %in% c('HC', 'IPD', 'SNCA+', 'GBA+', 'LR
   theme_bw() +
   theme(text = element_text(size=20)) +
   xlab('Predicted Neutrophil Percentage')+
-  guides(color = guide_legend(title = "SNCA+")) 
+  ylab(substitute(paste(italic('SNCA'))))+
+  guides(color = guide_legend(title = substitute(paste(italic('SNCA+')))))  +
+  stat_cor(aes(color = SNCA_mut), label.x = 3) 
 
 p4 <- ggplot(snca_data[snca_data$cohort %in% c('HC', 'IPD', 'SNCA+', 'GBA+', 'LRRK2+'),], aes(x=predNeut, y=SNCA, color = LRRK2_mut)) +
   geom_point(size = 0.5, aes(color = LRRK2_mut), alpha=0.5) +
@@ -163,7 +169,9 @@ p4 <- ggplot(snca_data[snca_data$cohort %in% c('HC', 'IPD', 'SNCA+', 'GBA+', 'LR
   theme_bw() +
   theme(text = element_text(size=20)) +
   xlab('Predicted Neutrophil Percentage') +
-  guides(color = guide_legend(title = "LRRK2+")) 
+  ylab(substitute(paste(italic('SNCA'))))+
+  guides(color = guide_legend(title = substitute(paste(italic('LRR2+')))))  +
+  stat_cor(aes(color = LRRK2_mut), label.x = 3) 
 
 ggsave('snca/snca_neutPer.jpg', plot=p1+p2+p3+p4, dpi=300)
 
@@ -254,121 +262,6 @@ p <- ggplot(snca_data_neutPer, aes(x=case_control_other, y=SNCA, fill = case_con
   theme(text = element_text(size=20))
 
 ggsave('snca/snca_by_visit_neutPer.jpeg', p, dpi=300)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Urine protein data
-urine1 <- read.csv('data/Targeted___untargeted_MS-based_proteomics_of_urine_in_PD_1_of_5_12Oct2024.csv')
-urine2 <- read.csv('data/Targeted___untargeted_MS-based_proteomics_of_urine_in_PD_2_of_5_12Oct2024.csv')
-urine3 <- read.csv('data/Targeted___untargeted_MS-based_proteomics_of_urine_in_PD_3_of_5_12Oct2024.csv')
-urine4 <- read.csv('data/Targeted___untargeted_MS-based_proteomics_of_urine_in_PD_4_of_5_12Oct2024.csv')
-urine5 <- read.csv('data/Targeted___untargeted_MS-based_proteomics_of_urine_in_PD_5_of_5_12Oct2024.csv')
-
-urine1 <- urine1[urine1$TESTNAME == 'SNCA_P37840-2',]
-urine2 <- urine2[urine2$TESTNAME == 'SNCA_P37840-2',]
-urine3 <- urine3[urine3$TESTNAME == 'SNCA_P37840-2',]
-urine4 <- urine4[urine4$TESTNAME == 'SNCA_P37840-2',]
-urine5 <- urine5[urine5$TESTNAME == 'SNCA_P37840-2',]
-urine_snca <- rbind(urine1, urine2, urine3, urine4, urine5)
-urine_snca$visit_month <- ifelse(urine_snca$CLINICAL_EVENT == 'BL', '0', '24')
-urine_snca$participant <- paste0('PP-', urine_snca$PATNO, '_', urine_snca$visit_month)
-
-sample_meta$participant <- paste0(sample_meta$participant_id, '_', sample_meta$visit_month)
-sample_meta <- merge(sample_meta, urine_snca, by='participant', all.x=TRUE)
-
-urine_meta <- sample_meta[!is.na(sample_meta$TESTNAME),]
-urine_meta$ageBin <- factor(ifelse(urine_meta$age_at_baseline < 40, 'Less than 40',
-                                  ifelse(urine_meta$age_at_baseline < 50, '40s',
-                                         ifelse(urine_meta$age_at_baseline < 60, '50s',
-                                                ifelse(urine_meta$age_at_baseline < 70, '60s', 'Greater than 70')))),
-                           levels = c('Less than 40', '40s', '50s', '60s', 'Greater than 70')) 
-
-ggplot(urine_meta, aes(x=ageBin, y=log10(TESTVALUE), fill = ageBin)) +
-  geom_boxplot() +
-  facet_wrap(~case_control_other_at_baseline)+
-  geom_signif(comparisons = list(c('Less than 40', '40s'),
-                                 c('Less than 40', '50s'),
-                                 c('Less than 40', '60s'),
-                                 c('Less than 40', 'Greater than 70')),
-              test = 'wilcox.test', step_increase = 0.04, textsize = 5) +
-  theme_bw()
-ggplot(urine_meta, aes(x=case_control_other_at_baseline, y=log10(TESTVALUE), fill = case_control_other_at_baseline)) +
-  geom_boxplot() +
-  facet_wrap(~ageBin)+
-  geom_signif(comparisons = list(c('Case', 'Control')),
-              test = 'wilcox.test', step_increase = 0.04, textsize = 5) +
-  theme_bw()
-
-
-ggplot(urine_meta, aes(x=factor(visit_month.x), y=log10(TESTVALUE), fill = factor(visit_month.x))) +
-  facet_wrap(~case_control_other_at_baseline)+
-  geom_signif(comparisons = list(c('0', '24')),
-              test = 'wilcox.test', step_increase = 0.04, textsize = 5) +
-  geom_boxplot() +
-  theme_bw()
-
-
-snca_neutPer <- as.data.frame(t(logCPM_neutPer[c('ENSG00000145335'),]))
-snca_data_neutPer$SNCA <- snca_neutPer$ENSG00000145335.15
-
-urine_meta$SNCA <- snca_data_neutPer[urine_meta$sample_id,]$SNCA
-cor(urine_meta$SNCA, log10(urine_meta$TESTVALUE))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
