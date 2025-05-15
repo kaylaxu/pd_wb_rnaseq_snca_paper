@@ -1,5 +1,5 @@
 ####### Volcano Plots for All Visits w/ Neutrophil Correction ####
-setwd("/Users/kxu/Library/CloudStorage/OneDrive-CityofHopeNationalMedicalCenter/CraigLab/Xu/PD Whole Blood DE/PD_FINAL.111524")
+
 library(data.table)
 library(EnhancedVolcano)
 library(readr)

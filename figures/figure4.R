@@ -4,7 +4,6 @@ library(readr)
 library(ggpubr)
 library(patchwork)
 
-setwd('/Users/kxu/Library/CloudStorage/OneDrive-CityofHopeNationalMedicalCenter/CraigLab/Xu/PD Whole Blood DE/PD_FINAL.111524')
 
 mito_genes <- c('MT-LIPCAR',	'MT-ATP6',	'MT-ATP8', 'MT-CO1', 'MT-CO2', 'MT-CO3', 'MT-CYB',	'MT-ND1', 'MT-ND2', 'MT-ND3',	'MT-ND4',	'MT-ND4L',	'MT-ND5',	'MT-ND6',	'MT-7SDNA',
                 'MT-ATT','MT-CSB1',	'MT-CSB2',	'MT-CSB3',	'MT-HPR',	'MT-HSP1',	'MT-HSP2',	'MT-LSP',	'MT-OHR',	'MT-OLR',	'MT-RNR3',	'MT-TAS', 'MT-TER',	'MT-TFH',	'MT-TFL',

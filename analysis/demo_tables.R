@@ -1,7 +1,5 @@
 # Table 1, Supplemental Table 1, Supplemental Table 2
 
-#setwd('/Users/kxu/Library/CloudStorage/OneDrive-CityofHopeNationalMedicalCenter/CraigLab/Xu/PD Whole Blood DE/PD_FINAL.111524')
-
 metaData <- read.csv("data/amp_meta_neutScos.csv", check.names = FALSE)
 sample_meta <- read.csv(file="data/AMP_RNAseq_metaData.csv", header=TRUE)
 sample_meta <- sample_meta[sample_meta$PCT_CHIMERAS < 0.03,]
