@@ -77,7 +77,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant")& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 ipd <- createVolcanoCustom(df, 'IPD vs Control - All', keyvals, geneLabels, c(-0.56,0.35), c(0,25))
 ipd
 
@@ -92,8 +92,8 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant")& df$significance != 'insignificant'),]$gene_name
-gba <- createVolcanoCustom(df, 'GBA1+ vs Control - All'), keyvals, geneLabels,c(-0.81, 0.61), c(0,18))
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
+gba <- createVolcanoCustom(df, 'GBA1+ vs Control - All', keyvals, geneLabels,c(-0.81, 0.61), c(0,18))
 gba
 
 ########### LRRK2+ v Control #########
@@ -107,7 +107,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant" )& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 lrrk2 <- createVolcanoCustom(df, 'LRRK2+ vs Control - All', keyvals, geneLabels, c(-1.13,1.1), c(0,75))
 lrrk2
 
@@ -124,7 +124,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant" )& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 snca <- createVolcanoCustom(df, 'SNCA+ vs Control - All', keyvals, geneLabels, c(-3.1,3), c(0,25))
 snca
 
@@ -139,7 +139,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant" )& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 lrrk2_2 <- createVolcanoCustom(df, 'LRRK2+ vs LRRK2- - All', keyvals, geneLabels, c(-1.36, 0.76), c(0,60))
 lrrk2_2
 
@@ -154,7 +154,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant" )& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 gba_2 <- createVolcanoCustom(df, 'GBA+ vs GBA- - All', keyvals, geneLabels, c(-0.6, 0.6), c(0,12))
 gba_2
 
@@ -176,14 +176,14 @@ p <- ggplot(snca_data[snca_data$cohort %in% c('HC', 'IPD', 'SNCA+ PD', 'GBA+ PD'
   geom_hline(yintercept = 9.948, linetype='dotted', col = 'red', linewidth=0.8) +
   scale_fill_brewer(palette="Set2") +
   xlab('') +
-  ylab(substitute(paste(italic('SNCA')))) +
+  ylab('log(CPM)') +
   ggtitle('Expression by Genetic Status') +
   guides(fill='none')
 
 
 
 
-ggsave('figure4.jpg', plot = ipd  + gba + lrrk2 + p + snca + lrrk2_2 + gba_2 + p + plot_layout(nrow = 2), dpi=300, height = 16, width=25)
+ggsave('figure4.jpg', plot = ipd  + gba + lrrk2 + p + snca + lrrk2_2 + gba_2 + p + plot_layout(nrow = 2), dpi=300, height = 16, width = 25)
 
 
 

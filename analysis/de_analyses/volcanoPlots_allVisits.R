@@ -1,5 +1,5 @@
 ####### Volcano Plots for All Visits w/ Neutrophil Correction ####
-
+setwd("/Users/kxu/Library/CloudStorage/OneDrive-CityofHopeNationalMedicalCenter/CraigLab/Xu/PD Whole Blood DE/PD_FINAL.111524")
 library(data.table)
 library(EnhancedVolcano)
 library(readr)
@@ -99,7 +99,7 @@ names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
 geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
-volPlot <- createVolcanoCustom(df, 'Case vs Control - All', keyvals, geneLabels, c(-0.404344,0.333523), c(0,23))
+volPlot <- createVolcanoCustom(df, 'Case vs Control - All', keyvals, geneLabels, c(-0.5,0.5), c(0,50))
 volPlot
 ggsave('DE_allVisits/volcanoPlots/case_v_control_All_EVol_mito.jpeg',
        volPlot,
@@ -174,7 +174,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant")& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 volPlot <- createVolcanoCustom(df, 'IPD vs Control - All', keyvals, geneLabels, c(-0.56,0.35), c(0,25))
 volPlot
 ggsave('DE_allVisits/volcanoPlots/ipd_v_control_All_EVol_mito.jpeg',
@@ -251,7 +251,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant")& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 volPlot <- createVolcanoCustom(df, 'GBA+ vs Control - All', keyvals, geneLabels,c(-0.81, 0.61), c(0,18))
 volPlot
 ggsave('DE_allVisits/volcanoPlots/GBA+_v_control_All_EVol_mito.jpeg',
@@ -327,7 +327,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant" )& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 volPlot <- createVolcanoCustom(df, 'LRRK2+ vs Control - All', keyvals, geneLabels, c(-1.13,1.1), c(0,75))
 volPlot
 ggsave('DE_allVisits/volcanoPlots/LRRK2+_v_control_All_EVol_mito.jpeg',
@@ -400,7 +400,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant" )& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 volPlot <- createVolcanoCustom(df, 'SNCA+ vs Control - All', keyvals, geneLabels, c(-3.1,3), c(0,25))
 volPlot
 ggsave('DE_allVisits/volcanoPlots/SNCA+_v_control_PPMI_EVol_mito.jpeg',
@@ -476,7 +476,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant" )& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 volPlot <- createVolcanoCustom(df, 'LRRK2+ vs LRRK2- - All', keyvals, geneLabels, c(-1.36, 0.76), c(0,60))
 volPlot
 ggsave('DE_allVisits/volcanoPlots/LRRK2+_v_LRRK2-_All_EVol_mito.jpeg',
@@ -554,7 +554,7 @@ keyvals[which(df$category == "PD causal variant")] <- '#440154FF'
 names(keyvals)[which(df$category == "PD causal variant")] <- 'PD causal variant'
 keyvals[which(df$category == "Mitochondria gene")] <- 'darkorange'
 names(keyvals)[which(df$category == "Mitochondria gene")] <- 'Mitochondria Genes'
-geneLabels <- df[which((df$category == "PD causal variant" )& df$significance != 'insignificant'),]$gene_name
+geneLabels <- df[which((df$category == "PD causal variant" | df$category == 'Mitochondria gene')& df$significance != 'insignificant'),]$gene_name
 volPlot <- createVolcanoCustom(df, 'LRRK2+ vs LRRK2- - All', keyvals, geneLabels, c(-0.6, 0.6), c(0,11))
 volPlot
 ggsave('DE_allVisits/volcanoPlots/GBA+_v_GBA-_All_EVol_mito.jpeg',

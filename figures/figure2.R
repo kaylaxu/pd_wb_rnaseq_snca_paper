@@ -17,7 +17,9 @@ combined_eval$Model <- "Combined Linear"
 xgb_eval$Model <- "XGBoost"
 
 eval_values <- rbind(mi_eval, bio_eval, combined_eval, xgb_eval)
-r2_plot <- ggplot(eval_values, aes(x=factor(Model,levels=c('Cell-Based Linear', 'MI Linear', 'Combined Linear', 'XGBoost')), y=R2, fill=Model)) +
+eval_values$Model <- factor(eval_values$Model,levels=c('Cell-Based Linear', 'MI Linear', 'Combined Linear', 'XGBoost'))
+                            
+r2_plot <- ggplot(eval_values, aes(x=Model, y=R2, fill=Model)) +
   geom_violin(alpha=0.5) +
   geom_beeswarm(cex = 1.5) +
   geom_boxplot(width = 0.1, alpha=0.5) +
@@ -41,7 +43,7 @@ r2_plot <- ggplot(eval_values, aes(x=factor(Model,levels=c('Cell-Based Linear', 
   guides(fill="none")
 
 
-rmse_plot <- ggplot(eval_values, aes(x=factor(Model,levels=c('Cell-Based Linear', 'MI Linear', 'Combined Linear', 'XGBoost')), y=RMSE, fill=Model)) +
+rmse_plot <- ggplot(eval_values, aes(x=Model, y=RMSE, fill=Model)) +
   geom_violin(alpha=0.5) +
   geom_beeswarm(cex = 1.5) +
   geom_boxplot(width = 0.1, alpha=0.5) +
@@ -66,7 +68,7 @@ rmse_plot <- ggplot(eval_values, aes(x=factor(Model,levels=c('Cell-Based Linear'
 
 
 
-mae_plot <- ggplot(eval_values, aes(x=factor(Model,levels=c('Cell-Based Linear', 'MI Linear', 'Combined Linear', 'XGBoost')), y=MAE, fill=Model)) +
+mae_plot <- ggplot(eval_values, aes(x=Model, y=MAE, fill=Model)) +
   geom_violin(alpha=0.5) +
   geom_beeswarm(cex = 1.5) +
   geom_boxplot(width = 0.1, alpha=0.5) +
